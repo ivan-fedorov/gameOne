@@ -1,14 +1,23 @@
 package com.fivan.gameone;
 
+import com.fivan.gameone.graphics.Screen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable {
 
   public static int width = 300;
   public static int height = width / 16 * 9;
   public static int scale = 3;
+
+  private Screen screen;
+
+  private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+  private int[] pixels =  ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
   private Thread thread;
   private JFrame frame;
@@ -17,6 +26,8 @@ public class Game extends Canvas implements Runnable {
   private Game() {
     Dimension size = new Dimension(width * scale, height * scale);
     setPreferredSize(size);
+
+    screen = new Screen(width, height);
 
     frame = new JFrame();
   }
@@ -52,6 +63,20 @@ public class Game extends Canvas implements Runnable {
       createBufferStrategy(3);
       return;
     }
+
+    screen.clear();
+    screen.render();
+
+    for (int i = 0; i < pixels.length; i++) {
+      pixels[i] = screen.pixels[i];
+    }
+
+    Graphics g = bs.getDrawGraphics();
+    g.setColor(Color.BLACK);
+    g.fillRect(0,0, getWidth(), getHeight());
+    g.drawImage(image, 0,0, getWidth(), getHeight(), null);
+    g.dispose();
+    bs.show();
 
   }
 
