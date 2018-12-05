@@ -10,9 +10,11 @@ import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable {
 
-  public static int width = 300;
-  public static int height = width / 16 * 9;
-  public static int scale = 3;
+  private static final String TITLE = "Game";
+
+  private static int width = 300;
+  private static int height = width / 16 * 9;
+  private static final int SCALE = 3;
 
   private Screen screen;
 
@@ -24,7 +26,7 @@ public class Game extends Canvas implements Runnable {
   private boolean running;
 
   private Game() {
-    Dimension size = new Dimension(width * scale, height * scale);
+    Dimension size = new Dimension(width * SCALE, height * SCALE);
     setPreferredSize(size);
 
     screen = new Screen(width, height);
@@ -32,13 +34,13 @@ public class Game extends Canvas implements Runnable {
     frame = new JFrame();
   }
 
-  public synchronized void start() {
+  private synchronized void start() {
     running = true;
     thread = new Thread(this, "Display");
     thread.start();
   }
 
-  public synchronized void stop() {
+  private synchronized void stop() {
     running = false;
     try {
       thread.join();
@@ -49,15 +51,36 @@ public class Game extends Canvas implements Runnable {
 
   @Override
   public void run() {
+    long lastTime = System.nanoTime();
+    int frames = 0;
+    int updates = 0;
+    long timer = System.currentTimeMillis();
+    final double ns = 1_000_000_000.0 / 60;
+    double delta = 0;
     while (running) {
-      update();
-      render();
+      long now = System.nanoTime();
+      delta += (now - lastTime) / ns;
+      lastTime = now;
+      while (delta >= 1) {
+        update();
+        updates++;
+        delta--;
+      }
+        render();
+        frames++;
+        if (System.currentTimeMillis() - timer > 1000) {
+          timer += 1000;
+          frame.setTitle(TITLE + " | upd: " + updates + " fps: " + frames);
+          updates = 0;
+          frames = 0;
+        }
     }
+    stop();
   }
 
-  public void update() {}
+  private void update() {}
 
-  public void render() {
+  private void render() {
     BufferStrategy bs = getBufferStrategy();
     if (bs == null) {
       createBufferStrategy(3);
@@ -67,9 +90,7 @@ public class Game extends Canvas implements Runnable {
     screen.clear();
     screen.render();
 
-    for (int i = 0; i < pixels.length; i++) {
-      pixels[i] = screen.pixels[i];
-    }
+    System.arraycopy(screen.pixels, 0, pixels, 0, pixels.length);
 
     Graphics g = bs.getDrawGraphics();
     g.setColor(Color.BLACK);
@@ -85,7 +106,7 @@ public class Game extends Canvas implements Runnable {
     Game game = new Game();
     JFrame frame = game.frame;
     frame.setResizable(false);
-    frame.setTitle("Game");
+    frame.setTitle(TITLE);
     frame.add(game);
     frame.pack();
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
