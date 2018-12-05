@@ -6,7 +6,9 @@ import java.util.Random;
 public class Screen {
 
   public int[] pixels;
-  private int[] tiles = new int[4096]; // 64 * 64
+  private final int MAP_SIZE = 64;
+  private final int MAP_SIZE_MASK = MAP_SIZE - 1;
+  private int[] tiles = new int[MAP_SIZE * MAP_SIZE];
 
   private int width, height;
   private Random random = new Random();
@@ -16,15 +18,20 @@ public class Screen {
     this.height = height;
     pixels = new int[width * height];
 
-    for (int i = 0; i < 4096; i++) {
+    for (int i = 0; i < MAP_SIZE * MAP_SIZE; i++) {
       tiles[i] = random.nextInt(0xffffff);
     }
+    tiles[0] = 0;
   }
 
-  public void render() {
+  public void render(int xOffset, int yOffset) {
     for (int y = 0; y < height; y++) {
+      int yy = y + yOffset;
+//      if (yy < 0  || yy >= height) { break; }
       for (int x = 0; x < width; x++) {
-        int tileIndex = (x >> 4) + (y >> 4) * 64;
+        int xx = x + xOffset;
+//        if (xx < 0  || xx >= width) { break; }
+        int tileIndex = ((xx >> 4) & MAP_SIZE_MASK) + ((yy >> 4) & MAP_SIZE_MASK) * MAP_SIZE;
         pixels[x + y * width] = tiles[tileIndex];
       }
     }

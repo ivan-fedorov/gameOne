@@ -19,11 +19,13 @@ public class Game extends Canvas implements Runnable {
   private Screen screen;
 
   private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-  private int[] pixels =  ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+  private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
   private Thread thread;
   private JFrame frame;
   private boolean running;
+
+  private int x, y;
 
   private Game() {
     Dimension size = new Dimension(width * SCALE, height * SCALE);
@@ -66,19 +68,21 @@ public class Game extends Canvas implements Runnable {
         updates++;
         delta--;
       }
-        render();
-        frames++;
-        if (System.currentTimeMillis() - timer > 1000) {
-          timer += 1000;
-          frame.setTitle(TITLE + " | upd: " + updates + " fps: " + frames);
-          updates = 0;
-          frames = 0;
-        }
+      render();
+      frames++;
+      if (System.currentTimeMillis() - timer > 1000) {
+        timer += 1000;
+        frame.setTitle(TITLE + " | upd: " + updates + " fps: " + frames);
+        updates = 0;
+        frames = 0;
+      }
     }
     stop();
   }
 
-  private void update() {}
+  private void update() {
+    x++;
+  }
 
   private void render() {
     BufferStrategy bs = getBufferStrategy();
@@ -88,14 +92,14 @@ public class Game extends Canvas implements Runnable {
     }
 
     screen.clear();
-    screen.render();
+    screen.render(x, y);
 
     System.arraycopy(screen.pixels, 0, pixels, 0, pixels.length);
 
     Graphics g = bs.getDrawGraphics();
     g.setColor(Color.BLACK);
-    g.fillRect(0,0, getWidth(), getHeight());
-    g.drawImage(image, 0,0, getWidth(), getHeight(), null);
+    g.fillRect(0, 0, getWidth(), getHeight());
+    g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     g.dispose();
     bs.show();
 
