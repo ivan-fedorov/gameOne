@@ -2,18 +2,19 @@ package com.fivan.gameone.graphics;
 
 public class Sprite {
 
+  public final int size;
   public int[] pixels;
-  private final int size;
   private int x, y;
   private SpriteSheet sheet;
 
-  public static Sprite grass = new Sprite(16, 0, 0, null);
+  public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 
-  private Sprite(int size, int x, int y, SpriteSheet sheet) {
-    this.size = size;
-    this.x = x * size;
-    this.y = y * size;
+  private Sprite(int SIZE, int x, int y, SpriteSheet sheet) {
+    this.size = SIZE;
+    this.x = x * SIZE;
+    this.y = y * SIZE;
     this.sheet = sheet;
+    this.pixels = new int[size * size];
     load();
   }
 
