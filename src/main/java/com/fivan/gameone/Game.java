@@ -17,15 +17,14 @@ public class Game extends Canvas implements Runnable {
   private static int width = 300;
   private static int height = width / 16 * 9;
 
-
-  private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-  private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
   private Screen screen;
   private Thread thread;
   private JFrame frame;
   private Keyboard key;
   private boolean running;
+
+  private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+  private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
   private int x, y;
 
@@ -34,7 +33,6 @@ public class Game extends Canvas implements Runnable {
     setPreferredSize(size);
 
     screen = new Screen(width, height);
-
     frame = new JFrame();
 
     key = new Keyboard();
@@ -111,7 +109,6 @@ public class Game extends Canvas implements Runnable {
     g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     g.dispose();
     bs.show();
-
   }
 
 
