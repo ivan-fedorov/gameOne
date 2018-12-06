@@ -59,6 +59,7 @@ public class Game extends Canvas implements Runnable {
     long lastTime = System.nanoTime();
     int frames = 0;
     int updates = 0;
+    requestFocus();
     long timer = System.currentTimeMillis();
     final double ns = 1_000_000_000.0 / 60;
     double delta = 0;
@@ -110,7 +111,6 @@ public class Game extends Canvas implements Runnable {
     g.dispose();
     bs.show();
   }
-
 
   public static void main(String[] args) {
     Game game = new Game();

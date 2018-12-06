@@ -1,8 +1,18 @@
 package com.fivan.gameone.graphics;
 
+/**
+ * Game sprite class.
+ */
 public class Sprite {
 
+  /**
+   * Size of sprite.
+   */
   public final int size;
+
+  /**
+   * An array with all pixels of current sprite.
+   */
   public int[] pixels;
   private int x, y;
   private SpriteSheet sheet;

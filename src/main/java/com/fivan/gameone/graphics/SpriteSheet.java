@@ -4,10 +4,24 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * Sheet that contains sprites on a grid.
+ */
 public class SpriteSheet {
 
+  /**
+   * Sprite sheet image pixels.
+   */
   int[] pixels;
+
+  /**
+   * Size of sheet to load.
+   */
   final int size;
+
+  /**
+   * Path to sprite sheet image.
+   */
   private String path;
 
   public static SpriteSheet tiles = new SpriteSheet("/texture/spritesheet.png", 256);
