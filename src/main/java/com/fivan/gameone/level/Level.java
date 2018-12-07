@@ -5,7 +5,7 @@ import com.fivan.gameone.graphics.Screen;
 /**
  * Basic template for levels.
  */
-public class Level {
+public abstract class Level {
 
   protected int width, height;
   protected int[] tiles;
