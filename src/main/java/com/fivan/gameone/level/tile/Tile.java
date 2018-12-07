@@ -9,6 +9,11 @@ import com.fivan.gameone.graphics.Sprite;
 public class Tile {
 
   /**
+   * Singleton of {@link GrassTile}.
+   */
+  public static Tile grass = new GrassTile(Sprite.grass);
+
+  /**
    * Coordinates on screen.
    */
   public int x,y;
