@@ -1,5 +1,7 @@
 package com.fivan.gameone.graphics;
 
+import com.fivan.gameone.level.tile.Tile;
+
 import java.util.Random;
 
 /**
@@ -17,7 +19,7 @@ public class Screen {
   /**
    * Screen generation with randomly colored tiles.
    *
-   * @param width width
+   * @param width  width
    * @param height height
    */
   public Screen(int width, int height) {
@@ -40,10 +42,10 @@ public class Screen {
   public void render(int xOffset, int yOffset) {
     for (int y = 0; y < height; y++) {
       int yp = y + yOffset;
-      if (yp < 0 || yp  >= height) { continue; }
+      if (yp < 0 || yp >= height) { continue; }
       for (int x = 0; x < width; x++) {
         int xp = x + xOffset;
-        if (xp < 0 || xp  >= width) { continue; }
+        if (xp < 0 || xp >= width) { continue; }
         pixels[xp + yp * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.size];
       }
     }
@@ -58,5 +60,23 @@ public class Screen {
     }
   }
 
+  /**
+   * Method for rendering a {@link Tile}.
+   *
+   * @param xp   x position
+   * @param yp   y position
+   * @param tile {@link Tile} object
+   */
+  public void renderTile(int xp, int yp, Tile tile) {
+    for (int y = 0; y < tile.sprite.size; y++) {
+      int ya = y + yp;
+
+      for (int x = 0; x < tile.sprite.size; x++) {
+        int xa = x + xp;
+        if (xa < 0 || xa >= width || ya < 0 || ya >= height) { break; }
+        pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.size];
+      }
+    }
+  }
 
 }
