@@ -13,6 +13,8 @@ public class Screen {
   private final int MAP_SIZE = 64;
   private int[] tiles = new int[MAP_SIZE * MAP_SIZE];
 
+  public int xOffset, yOffset;
+
   public int width, height;
   private Random random = new Random();
 
@@ -68,6 +70,8 @@ public class Screen {
    * @param tile {@link Tile} object
    */
   public void renderTile(int xp, int yp, Tile tile) {
+    xp -= xOffset;
+    yp -= yOffset;
     for (int y = 0; y < tile.sprite.size; y++) {
       int ya = y + yp;
 
@@ -77,6 +81,17 @@ public class Screen {
         pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.size];
       }
     }
+  }
+
+  /**
+   * Sets an offset.
+   *
+   * @param xOffset x offset
+   * @param yOffset y offset
+   */
+  public void setOffset(int xOffset, int yOffset) {
+    this.xOffset = xOffset;
+    this.yOffset = yOffset;
   }
 
 }
