@@ -1,6 +1,7 @@
 package com.fivan.gameone.level;
 
 import com.fivan.gameone.graphics.Screen;
+import com.fivan.gameone.level.tile.Tile;
 
 /**
  * Basic template for levels.
@@ -52,6 +53,11 @@ public abstract class Level {
     int y0 = yScroll >> 4;
     int y1 = (yScroll + screen.height) >> 4;
 
+  }
+
+  public Tile getTile(int x, int y) {
+    if (tiles[x + y * width] == 0) { return Tile.grass; }
+    return null;
   }
 
   protected void generateLevel() {
