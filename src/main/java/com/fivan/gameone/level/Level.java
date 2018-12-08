@@ -46,7 +46,13 @@ public abstract class Level {
    * @param yScroll y coordinate
    * @param screen screen to render
    */
-  public void render(int xScroll, int yScroll, Screen screen) {}
+  public void render(int xScroll, int yScroll, Screen screen) {
+    int x0 = xScroll >> 4;
+    int x1 = (xScroll + screen.width) >> 4;
+    int y0 = yScroll >> 4;
+    int y1 = (yScroll + screen.height) >> 4;
+
+  }
 
   protected void generateLevel() {
 
@@ -57,5 +63,7 @@ public abstract class Level {
   }
 
   private void time() {}
+
+
 
 }
