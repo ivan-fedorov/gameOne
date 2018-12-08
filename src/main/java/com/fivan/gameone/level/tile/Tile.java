@@ -12,6 +12,7 @@ public class Tile {
    * Singleton of {@link GrassTile}.
    */
   public static Tile grass = new GrassTile(Sprite.grass);
+  public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 
   /**
    * Coordinates on screen.

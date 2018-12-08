@@ -18,14 +18,27 @@ public class Sprite {
   private SpriteSheet sheet;
 
   public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
+  public static Sprite voidSprite = new Sprite(16, 0);
 
-  private Sprite(int SIZE, int x, int y, SpriteSheet sheet) {
-    this.size = SIZE;
-    this.x = x * SIZE;
-    this.y = y * SIZE;
+  private Sprite(int size, int x, int y, SpriteSheet sheet) {
+    this.size = size;
+    this.x = x * size;
+    this.y = y * size;
     this.sheet = sheet;
-    this.pixels = new int[size * size];
+    this.pixels = new int[this.size * this.size];
     load();
+  }
+
+  private Sprite(int size, int color) {
+    this.size = size;
+    pixels = new int[size * size];
+    setColor(color);
+  }
+
+  private void setColor(int color) {
+    for (int i = 0; i < size * size; i++) {
+      pixels[i] = color;
+    }
   }
 
   private void load() {
