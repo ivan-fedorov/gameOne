@@ -14,7 +14,7 @@ public abstract class Level {
   /**
    * Random level generator.
    *
-   * @param width width
+   * @param width  width
    * @param height height
    */
   public Level(int width, int height) {
@@ -45,7 +45,7 @@ public abstract class Level {
    *
    * @param xScroll x coordinate
    * @param yScroll y coordinate
-   * @param screen screen to render
+   * @param screen  screen to render
    */
   public void render(int xScroll, int yScroll, Screen screen) {
     screen.setOffset(xScroll, yScroll);
@@ -54,6 +54,11 @@ public abstract class Level {
     int y0 = yScroll >> 4;
     int y1 = (yScroll + screen.height) >> 4;
 
+    for (int y = y0; y < y1; y++) {
+      for (int x = x0; x < x1; x++) {
+        getTile(x, y).render(x, y, screen);
+      }
+    }
   }
 
   public Tile getTile(int x, int y) {
@@ -70,7 +75,6 @@ public abstract class Level {
   }
 
   private void time() {}
-
 
 
 }
