@@ -5,7 +5,7 @@ import com.fivan.gameone.level.Level;
 
 import java.util.Random;
 
-public class Entity {
+public abstract class Entity {
 
   /**
    * Coordinates.
