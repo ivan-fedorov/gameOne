@@ -20,6 +20,11 @@ public class Sprite {
   public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
   public static Sprite voidSprite = new Sprite(16, 0x1B88E0);
 
+  public static Sprite player0 = new Sprite(16, 1, 0, SpriteSheet.tiles);
+  public static Sprite player1 = new Sprite(16, 2, 0, SpriteSheet.tiles);
+  public static Sprite player2 = new Sprite(16, 3, 0, SpriteSheet.tiles);
+  public static Sprite player3 = new Sprite(16, 4, 0, SpriteSheet.tiles);
+
   private Sprite(int size, int x, int y, SpriteSheet sheet) {
     this.size = size;
     this.x = x * size;
