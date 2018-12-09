@@ -2,6 +2,8 @@ package com.fivan.gameone;
 
 import com.fivan.gameone.graphics.Screen;
 import com.fivan.gameone.input.Keyboard;
+import com.fivan.gameone.level.Level;
+import com.fivan.gameone.level.RandomLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,11 +19,13 @@ public class Game extends Canvas implements Runnable {
   private static int width = 300;
   private static int height = width / 16 * 9;
 
-  private Screen screen;
   private Thread thread;
   private JFrame frame;
   private Keyboard key;
+  private Level level;
   private boolean running;
+
+  private Screen screen;
 
   private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
   private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
@@ -34,6 +38,7 @@ public class Game extends Canvas implements Runnable {
 
     screen = new Screen(width, height);
     frame = new JFrame();
+    level = new RandomLevel(64, 64);
 
     key = new Keyboard();
     addKeyListener(key);
@@ -57,12 +62,12 @@ public class Game extends Canvas implements Runnable {
   @Override
   public void run() {
     long lastTime = System.nanoTime();
-    int frames = 0;
-    int updates = 0;
-    requestFocus();
     long timer = System.currentTimeMillis();
     final double ns = 1_000_000_000.0 / 60;
     double delta = 0;
+    int frames = 0;
+    int updates = 0;
+    requestFocus();
     while (running) {
       long now = System.nanoTime();
       delta += (now - lastTime) / ns;
@@ -74,6 +79,7 @@ public class Game extends Canvas implements Runnable {
       }
       render();
       frames++;
+
       if (System.currentTimeMillis() - timer > 1000) {
         timer += 1000;
         frame.setTitle(TITLE + " | upd: " + updates + " fps: " + frames);
@@ -100,13 +106,11 @@ public class Game extends Canvas implements Runnable {
     }
 
     screen.clear();
-    screen.render(x, y);
+    level.render(x, y, screen);
 
     System.arraycopy(screen.pixels, 0, pixels, 0, pixels.length);
 
     Graphics g = bs.getDrawGraphics();
-    g.setColor(Color.BLACK);
-    g.fillRect(0, 0, getWidth(), getHeight());
     g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
     g.dispose();
     bs.show();

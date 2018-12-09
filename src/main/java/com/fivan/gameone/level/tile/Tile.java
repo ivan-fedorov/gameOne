@@ -17,7 +17,7 @@ public class Tile {
   /**
    * Coordinates on screen.
    */
-  public int x,y;
+  public int x, y;
 
   /**
    * {@link Sprite} object for tile.

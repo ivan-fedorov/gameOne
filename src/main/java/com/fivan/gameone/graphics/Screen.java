@@ -35,23 +35,6 @@ public class Screen {
     tiles[0] = 0;
   }
 
-  /**
-   * Renders shifted screen by x and y coordinates.
-   *
-   * @param xOffset x coordinate
-   * @param yOffset y coordinate
-   */
-  public void render(int xOffset, int yOffset) {
-    for (int y = 0; y < height; y++) {
-      int yp = y + yOffset;
-      if (yp < 0 || yp >= height) { continue; }
-      for (int x = 0; x < width; x++) {
-        int xp = x + xOffset;
-        if (xp < 0 || xp >= width) { continue; }
-        pixels[xp + yp * width] = Sprite.grass.pixels[(x & 15) + (y & 15) * Sprite.grass.size];
-      }
-    }
-  }
 
   /**
    * Clears screen.
@@ -74,7 +57,6 @@ public class Screen {
     yp -= yOffset;
     for (int y = 0; y < tile.sprite.size; y++) {
       int ya = y + yp;
-
       for (int x = 0; x < tile.sprite.size; x++) {
         int xa = x + xp;
         if (xa < 0 || xa >= width || ya < 0 || ya >= height) { break; }
