@@ -1,5 +1,6 @@
 package com.fivan.gameone;
 
+import com.fivan.gameone.entity.mob.Player;
 import com.fivan.gameone.graphics.Screen;
 import com.fivan.gameone.input.Keyboard;
 import com.fivan.gameone.level.Level;
@@ -23,14 +24,13 @@ public class Game extends Canvas implements Runnable {
   private JFrame frame;
   private Keyboard key;
   private Level level;
+  private Player player;
   private boolean running;
 
   private Screen screen;
 
   private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
   private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
-  private int x, y;
 
   private Game() {
     Dimension size = new Dimension(width * SCALE, height * SCALE);
@@ -39,8 +39,9 @@ public class Game extends Canvas implements Runnable {
     screen = new Screen(width, height);
     frame = new JFrame();
     level = new RandomLevel(64, 64);
-
     key = new Keyboard();
+    player = new Player(key);
+
     addKeyListener(key);
   }
 
@@ -92,10 +93,7 @@ public class Game extends Canvas implements Runnable {
 
   private void update() {
     key.update();
-    if (key.up) { y++; }
-    if (key.down) { y--; }
-    if (key.left) { x++; }
-    if (key.right) { x--; }
+    player.update();
   }
 
   private void render() {
@@ -106,7 +104,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     screen.clear();
-    level.render(x, y, screen);
+    level.render(player.x, player.y, screen);
 
     System.arraycopy(screen.pixels, 0, pixels, 0, pixels.length);
 
