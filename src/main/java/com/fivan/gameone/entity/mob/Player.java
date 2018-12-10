@@ -11,6 +11,7 @@ public class Player extends Mob {
 
   public Player(Keyboard input) {
     this.input = input;
+    sprite = Sprite.playerForward;
   }
 
   public Player(int x, int y, Keyboard input) {
@@ -32,6 +33,13 @@ public class Player extends Mob {
 
   @Override
   public void render(Screen screen) {
-    screen.renderPlayer(x - 16, y - 16, Sprite.player);
+    switch (dir) {
+      case 0: sprite = Sprite.playerForward; break;
+      case 1: sprite = Sprite.playerRight; break;
+      case 2: sprite = Sprite.playerBack; break;
+      default: sprite = Sprite.playerLeft;
+
+    }
+    screen.renderPlayer(x - 16, y - 16, sprite);
   }
 }
