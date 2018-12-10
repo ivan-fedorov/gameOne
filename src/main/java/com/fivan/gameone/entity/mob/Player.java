@@ -33,13 +33,13 @@ public class Player extends Mob {
 
   @Override
   public void render(Screen screen) {
+    int flip = 0;
     switch (dir) {
       case 0: sprite = Sprite.playerForward; break;
-      case 1: sprite = Sprite.playerRight; break;
       case 2: sprite = Sprite.playerBack; break;
-      default: sprite = Sprite.playerLeft;
-
+      case 3: sprite = Sprite.playerSide; break;
+      default: sprite = Sprite.playerSide; flip = 1;
     }
-    screen.renderPlayer(x - 16, y - 16, sprite);
+    screen.renderPlayer(x - 16, y - 16, sprite, flip);
   }
 }

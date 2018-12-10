@@ -22,8 +22,7 @@ public class Sprite {
 
   public static Sprite playerBack = new Sprite(32, 0,5, SpriteSheet.tiles);
   public static Sprite playerForward = new Sprite(32, 1,5, SpriteSheet.tiles);
-  public static Sprite playerLeft = new Sprite(32, 2,5, SpriteSheet.tiles);
-  public static Sprite playerRight = new Sprite(32, 3,5, SpriteSheet.tiles);
+  public static Sprite playerSide = new Sprite(32, 2,5, SpriteSheet.tiles);
 
   private Sprite(int size, int x, int y, SpriteSheet sheet) {
     this.size = size;
