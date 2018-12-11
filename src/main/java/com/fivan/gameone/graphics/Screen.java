@@ -19,7 +19,7 @@ public class Screen {
   private Random random = new Random();
 
   /**
-   * Screen generation with randomly colored tiles.
+   * Screen generation with randomly colored tilesInt.
    *
    * @param width  width
    * @param height height

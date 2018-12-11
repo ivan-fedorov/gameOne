@@ -4,7 +4,7 @@ import com.fivan.gameone.entity.mob.Player;
 import com.fivan.gameone.graphics.Screen;
 import com.fivan.gameone.input.Keyboard;
 import com.fivan.gameone.level.Level;
-import com.fivan.gameone.level.RandomLevel;
+import com.fivan.gameone.level.SpawnLevel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable {
 
     screen = new Screen(width, height);
     frame = new JFrame();
-    level = new RandomLevel(64, 64);
+    level = new SpawnLevel("/texture/level.png");
     key = new Keyboard();
     player = new Player(key);
 
