@@ -19,6 +19,8 @@ public class Sprite {
 
   public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
   public static Sprite voidSprite = new Sprite(16, 0x1B88E0);
+  public static Sprite flower = new Sprite(16, 1, 0, SpriteSheet.tiles);
+  public static Sprite rock = new Sprite(16, 2, 0, SpriteSheet.tiles);
 
   public static Sprite playerForward = new Sprite(32, 1,5, SpriteSheet.tiles);
   public static Sprite playerForward1 = new Sprite(32, 1,6, SpriteSheet.tiles);
